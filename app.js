@@ -17,11 +17,11 @@ const employmentType = [{
 
     type: "list",
     message: "What is the employees role?",
+    name: "role",
     choices: [
-        "manager",
-        "employee",
-        "intern",
-        "engineer",
+        "Manager",
+        "Intern",
+        "Engineer",
         "No more staff to add"
     ]
 }];
@@ -36,10 +36,8 @@ const allStaffQuestions = [{
     type: "input",
     message: "What is your id number?",
     name: "id"    
-}];
-
-const employeeQuestion = [{
-
+},
+{
     type: "input",
     message: "What is you email address?",
     name: "email"
@@ -69,6 +67,35 @@ const managerQuestion = [{
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
+function createEmployees(){
+    prompt(employmentType).then((data) => {
+         if(data.role === "Manager"){
+             createManager();
+         }else if (data.role === "Intern"){
+             createIntern();
+         }else if (data.role === "Engineer"){
+             createEngineer();
+         }else {
+             console.log("No more employee's")
+         }
+    })
+}
+
+
+
+// function init (){
+//     prompt([ ...employmentType, allStaffQuestions])
+//     .then(({ Manager, name, id, email}) => {
+//         let manager = new Manager(name, id, email, officeNumber);
+//         if(name !== "" && id !== "" && email !== "" && officeNumber !== ""){
+//             employees.push(manager);
+//             createEmployees();
+//         }else {
+//             console.log("Please enter correct information");
+//             return;
+//         }
+//     })
+// }
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
