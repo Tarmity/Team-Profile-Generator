@@ -1,6 +1,6 @@
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+const ManagerC = require("./lib/Manager");
+const EngineerC = require("./lib/Engineer");
+const InternC = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -16,7 +16,6 @@ const render = require("./lib/htmlRenderer");
 const employmentType = [{
 
     type: "list",
-    message: "What is the employees role?",
     name: "role",
     choices: [
         "Manager",
@@ -71,11 +70,11 @@ function init(){
     inquirer
     .prompt([...employmentType]).then((data) => {
          if(data.role === "Manager"){
-             createManager();
+             addManager();
          }else if (data.role === "Intern"){
-             createIntern();
+             addIntern();
          }else if (data.role === "Engineer"){
-             createEngineer();
+             addEngineer();
          }else {
              console.log("No more employee's")
              writeToFile("./output/team.html", render(employees))
@@ -83,17 +82,16 @@ function init(){
     })
 }
 
-function createManager () {
+function addManager () {
     inquirer
     .prompt ([ ...allStaffQuestions, ...managerQuestion])
     .then(({name, id, email, officeNumber}) => {
-        let Manager = new ManagerC (name, id, email, officeNumber);
-        if (name !== "" || id !== "" || email !== "" || officeNumber !== "") {
+        let manager = new ManagerC (name, id, email, officeNumber);
+        if (name === "" && id === "" && email === "" && officeNumber === "" && !isNaN(officeNumber) ) {
             console.log("please enter the correct information");
-            createManager();
+            addManager();
         }else {
-            employess.push(Manager);
-           
+            employees.push(manager);
             init();
         };
 
@@ -101,35 +99,37 @@ function createManager () {
 
 };
 
-function createIntern () {  
+function addIntern () {  
     inquirer
     .prompt ([ ...allStaffQuestions, ...internQuestion])
-    .then(({name, id, email, github}) => {
+    .then(({name, id, email, school}) => {
         let intern = new InternC (name, id, email, school);
-        if (name !== "" || id !== "" || email !== "" || school !== "") {
+        if (name  === "" && id === "" && email === "" && school === "") {
             console.log("please enter the correct information");
-            createIntern();   
+            addIntern();  
         }else {
-            employess.push(intern);
-            
+            employees.push(intern);
             init();
+              
         };
 
     });
 };
 
 
-function createEngineer () { 
+function addEngineer () { 
     inquirer
     .prompt ([ ...allStaffQuestions, ...engineerQuestion])
     .then(({name, id, email, github}) => {
         let engineer = new EngineerC (name, id, email, github);
-        if (name !== "" || id !== "" || email !== "" || github !== "") {
+        if (name === "" && id === "" && email === "" && github === "") {
             console.log("please enter the correct information");
-            createEngineer();
+            addEngineer();
         }else {
-            employess.push(engineer);      
+            employees.push(engineer);      
             init();
+            
+            
         };
     }) 
 }
