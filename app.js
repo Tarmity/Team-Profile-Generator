@@ -4,7 +4,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
+const employees = [];
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -87,9 +87,12 @@ function createManager () {
     .prompt ([ ...allStaffQuestions, ...managerQuestion])
     .then(({name, id, email, github}) => {
         let manager = new Manager (name, id, email, officeNumber);
-        if (name !== "" || id !== "" || email !== "" || officeNumber!== "") {
+        if (name !== "" || id !== "" || email !== "" || officeNumber !== "") {
             console.log("please enter the correct information");
         }else {
+            employess.push(manager);
+            createManager();
+            //generate HTML and write file
             writeToFile("./output/team.html", render(employees))
             init();
         };
@@ -102,10 +105,13 @@ function createIntern () {
     inquirer
     .prompt ([ ...allStaffQuestions, ...internQuestion])
     .then(({name, id, email, github}) => {
-        let manager = new Intern (name, id, email, school);
+        let intern = new Intern (name, id, email, school);
         if (name !== "" || id !== "" || email !== "" || school !== "") {
             console.log("please enter the correct information");
+            createIntern();   
         }else {
+            employess.push(intern);
+            //generate HTML and write file
             writeToFile("./output/team.html", render(employees))
             init();
         };
@@ -118,15 +124,29 @@ function createEngineer () {
     inquirer
     .prompt ([ ...allStaffQuestions, ...engineerQuestion])
     .then(({name, id, email, github}) => {
-        let manager = new Engineer (name, id, email, github);
+        let engineer = new Engineer (name, id, email, github);
         if (name !== "" || id !== "" || email !== "" || github !== "") {
             console.log("please enter the correct information");
+            createEngineer();
         }else {
+            employess.push(engineer);
+            //generate HTML and write file
             writeToFile("./output/team.html", render(employees))
             init();
         };
     }) 
 }
+
+function writeToFile(filename, data) {
+    fs.writeFile(filename, data, err => {
+        if (err) {
+            throw err;
+        }
+        console.log("Successful!");
+    })
+}
+
+init()
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
@@ -143,4 +163,3 @@ function createEngineer () {
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-init()
