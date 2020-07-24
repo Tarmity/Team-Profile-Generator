@@ -67,7 +67,7 @@ const managerQuestion = [{
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
-function createEmployees(){
+function init(){
     prompt(employmentType).then((data) => {
          if(data.role === "Manager"){
              createManager();
@@ -81,21 +81,30 @@ function createEmployees(){
     })
 }
 
+function createManager () {
+    prompt ([ ...allStaffQuestions, managerQuestion])
+    .then(({name, id, email, github}) => {
+        let manager = new Manager (name, id, email, github);
+        if (name !== "" || id !== "" || email !== "" || github !== "") {
+            console.log("please enter the correct information");
+        }else {
+            employees.push(engineer);
+            init();
+        };
+
+    });
+
+};
+
+function createIntern () {
+
+}
 
 
-// function init (){
-//     prompt([ ...employmentType, allStaffQuestions])
-//     .then(({ Manager, name, id, email}) => {
-//         let manager = new Manager(name, id, email, officeNumber);
-//         if(name !== "" && id !== "" && email !== "" && officeNumber !== ""){
-//             employees.push(manager);
-//             createEmployees();
-//         }else {
-//             console.log("Please enter correct information");
-//             return;
-//         }
-//     })
-// }
+function createEmployees () { 
+
+}
+
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
