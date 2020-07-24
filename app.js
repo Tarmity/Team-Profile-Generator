@@ -78,6 +78,7 @@ function init(){
              createEngineer();
          }else {
              console.log("No more employee's")
+             writeToFile("./output/team.html", render(employees))
          }
     })
 }
@@ -85,7 +86,7 @@ function init(){
 function createManager () {
     inquirer
     .prompt ([ ...allStaffQuestions, ...managerQuestion])
-    .then(({name, id, email, github}) => {
+    .then(({name, id, email, officeNumber}) => {
         let manager = new Manager (name, id, email, officeNumber);
         if (name !== "" || id !== "" || email !== "" || officeNumber !== "") {
             console.log("please enter the correct information");
@@ -93,7 +94,6 @@ function createManager () {
             employess.push(manager);
             createManager();
             //generate HTML and write file
-            writeToFile("./output/team.html", render(employees))
             init();
         };
 
@@ -112,7 +112,6 @@ function createIntern () {
         }else {
             employess.push(intern);
             //generate HTML and write file
-            writeToFile("./output/team.html", render(employees))
             init();
         };
 
@@ -130,8 +129,7 @@ function createEngineer () {
             createEngineer();
         }else {
             employess.push(engineer);
-            //generate HTML and write file
-            writeToFile("./output/team.html", render(employees))
+            //generate HTML and write file           
             init();
         };
     }) 
