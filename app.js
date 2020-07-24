@@ -87,13 +87,13 @@ function createManager () {
     inquirer
     .prompt ([ ...allStaffQuestions, ...managerQuestion])
     .then(({name, id, email, officeNumber}) => {
-        let manager = new Manager (name, id, email, officeNumber);
+        let Manager = new ManagerC (name, id, email, officeNumber);
         if (name !== "" || id !== "" || email !== "" || officeNumber !== "") {
             console.log("please enter the correct information");
-        }else {
-            employess.push(manager);
             createManager();
-            //generate HTML and write file
+        }else {
+            employess.push(Manager);
+           
             init();
         };
 
@@ -105,13 +105,13 @@ function createIntern () {
     inquirer
     .prompt ([ ...allStaffQuestions, ...internQuestion])
     .then(({name, id, email, github}) => {
-        let intern = new Intern (name, id, email, school);
+        let intern = new InternC (name, id, email, school);
         if (name !== "" || id !== "" || email !== "" || school !== "") {
             console.log("please enter the correct information");
             createIntern();   
         }else {
             employess.push(intern);
-            //generate HTML and write file
+            
             init();
         };
 
@@ -123,13 +123,12 @@ function createEngineer () {
     inquirer
     .prompt ([ ...allStaffQuestions, ...engineerQuestion])
     .then(({name, id, email, github}) => {
-        let engineer = new Engineer (name, id, email, github);
+        let engineer = new EngineerC (name, id, email, github);
         if (name !== "" || id !== "" || email !== "" || github !== "") {
             console.log("please enter the correct information");
             createEngineer();
         }else {
-            employess.push(engineer);
-            //generate HTML and write file           
+            employess.push(engineer);      
             init();
         };
     }) 
