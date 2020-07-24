@@ -68,7 +68,8 @@ const managerQuestion = [{
 // generate and return a block of HTML including templated divs for each employee!
 
 function init(){
-    prompt(employmentType).then((data) => {
+    inquirer
+    .prompt([...employmentType]).then((data) => {
          if(data.role === "Manager"){
              createManager();
          }else if (data.role === "Intern"){
@@ -82,13 +83,14 @@ function init(){
 }
 
 function createManager () {
-    prompt ([ ...allStaffQuestions, managerQuestion])
+    inquirer
+    .prompt ([ ...allStaffQuestions, ...managerQuestion])
     .then(({name, id, email, github}) => {
-        let manager = new Manager (name, id, email, github);
-        if (name !== "" || id !== "" || email !== "" || github !== "") {
+        let manager = new Manager (name, id, email, officeNumber);
+        if (name !== "" || id !== "" || email !== "" || officeNumber!== "") {
             console.log("please enter the correct information");
         }else {
-            employees.push(engineer);
+            writeToFile("./output/team.html", render(employees))
             init();
         };
 
@@ -96,13 +98,34 @@ function createManager () {
 
 };
 
-function createIntern () {
+function createIntern () {  
+    inquirer
+    .prompt ([ ...allStaffQuestions, ...internQuestion])
+    .then(({name, id, email, github}) => {
+        let manager = new Intern (name, id, email, school);
+        if (name !== "" || id !== "" || email !== "" || school !== "") {
+            console.log("please enter the correct information");
+        }else {
+            writeToFile("./output/team.html", render(employees))
+            init();
+        };
 
-}
+    });
+};
 
 
-function createEmployees () { 
-
+function createEngineer () { 
+    inquirer
+    .prompt ([ ...allStaffQuestions, ...engineerQuestion])
+    .then(({name, id, email, github}) => {
+        let manager = new Engineer (name, id, email, github);
+        if (name !== "" || id !== "" || email !== "" || github !== "") {
+            console.log("please enter the correct information");
+        }else {
+            writeToFile("./output/team.html", render(employees))
+            init();
+        };
+    }) 
 }
 
 // After you have your html, you're now ready to create an HTML file using the HTML
@@ -120,3 +143,4 @@ function createEmployees () {
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+init()
