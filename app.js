@@ -26,7 +26,7 @@ const employmentType = [{
 }];
 
 const allStaffQuestions = [{
-   
+
     type: "input",
     message: "What is your name?",
     name: "name"
@@ -34,7 +34,7 @@ const allStaffQuestions = [{
 {
     type: "input",
     message: "What is your id number?",
-    name: "id"    
+    name: "id"
 },
 {
     type: "input",
@@ -43,7 +43,7 @@ const allStaffQuestions = [{
 }];
 
 const engineerQuestion = [{
-   
+
     type: "input",
     message: "What is you GitHub username?",
     name: "github"
@@ -66,73 +66,73 @@ const managerQuestion = [{
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
-function init(){
+function init() {
     inquirer
-    .prompt([...employmentType]).then((data) => {
-         if(data.role === "Manager"){
-             addManager();
-         }else if (data.role === "Intern"){
-             addIntern();
-         }else if (data.role === "Engineer"){
-             addEngineer();
-         }else {
-             console.log(employees)
-             console.log("No more employee's")
-             writeToFile("./output/team.html", render(employees))
-         }
-    })
+        .prompt([...employmentType]).then((data) => {
+            if (data.role === "Manager") {
+                addManager();
+            } else if (data.role === "Intern") {
+                addIntern();
+            } else if (data.role === "Engineer") {
+                addEngineer();
+            } else {
+                console.log(employees)
+                console.log("No more employee's")
+                writeToFile("./output/team.html", render(employees))
+            }
+        })
 }
 
-function addManager () {
+function addManager() {
     inquirer
-    .prompt ([ ...allStaffQuestions, ...managerQuestion])
-    .then(({name, id, email, officeNumber}) => {
-        let manager = new Manager (name, id, email, officeNumber);
-        if (name === "" && id === "" && email === "" && officeNumber === "" && !isNaN(officeNumber) ) {
-            console.log("please enter the correct information");
-            addManager();
-        }else {
-            employees.push(manager);
-            init();
-        };
+        .prompt([...allStaffQuestions, ...managerQuestion])
+        .then(({ name, id, email, officeNumber }) => {
+            let manager = new Manager(name, id, email, officeNumber);
+            if (name === "" && id === "" && email === "" && officeNumber === "" && !isNaN(officeNumber)) {
+                console.log("please enter the correct information");
+                addManager();
+            } else {
+                employees.push(manager);
+                init();
+            };
 
-    });
+        });
 
 };
 
-function addIntern () {  
+function addIntern() {
     inquirer
-    .prompt ([ ...allStaffQuestions, ...internQuestion])
-    .then(({name, id, email, school}) => {
-        let intern = new Intern (name, id, email, school);
-        if (name  === "" && id === "" && email === "" && school === "") {
-            console.log("please enter the correct information");
-            addIntern();  
-        }else {
-            employees.push(intern);
-            init();
-              
-        };
+        .prompt([...allStaffQuestions, ...internQuestion])
+        .then(({ name, id, email, school }) => {
+            let intern = new Intern(name, id, email, school);
+            if (name === "" && id === "" && email === "" && school === "") {
+                console.log("please enter the correct information");
+                addIntern();
+            } else {
+                employees.push(intern);
+                init();
 
-    });
+            };
+
+        });
 };
 
 
-function addEngineer () { 
+function addEngineer() {
     inquirer
-    .prompt ([ ...allStaffQuestions, ...engineerQuestion])
-    .then(({name, id, email, github}) => {
-        let engineer = new Engineer (name, id, email, github);
-        if (name === "" && id === "" && email === "" && github === "") {
-            console.log("please enter the correct information");
-            addEngineer();
-        }else {
-            employees.push(engineer);      
-            init();
-            
-            
-        };
-    }) 
+        .prompt([...allStaffQuestions, ...engineerQuestion])
+        .then(({ name, id, email, github }) => {
+            let engineer = new Engineer(name, id, email, github);
+            if (name === "" && id === "" && email === "" && github === "") {
+                console.log("please enter the correct information");
+                addEngineer();
+            } else {
+                employees.push(engineer);
+                init();
+
+
+            };
+        })
 }
 
 function writeToFile(filename, data) {
