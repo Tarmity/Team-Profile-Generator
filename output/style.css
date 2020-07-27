@@ -1,0 +1,44 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+.body {
+    background-color: #EAEFFE;
+}
+
+
+.jumbotron {
+    background-color:#0A2061;
+    color: #85A0F0;
+    
+}
+
+.text-center {
+    font-size: 100px;
+}
+
+
+.card-header {
+    background-color:#85A0F0;
+    color: #1441C7;
+    text-align: center;
+}
+
+.card {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.fas {
+    color: #0A2061;
+}
+
+
+.card-body {
+    text-decoration-color: #0A2061;
+}
