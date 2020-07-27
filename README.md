@@ -1,10 +1,10 @@
 # Team Profile Generator
-  ![License](https://img.shields.io/github/license/tarmity/Team Profile Generator)
+  ![License](https://img.shields.io/github/license/tarmity/Team-Profile-Generator)
   
   ## Description
   * This repository is where I developed the app Team Profile Generator. Not only do I work on code and issues here. I also publish the latest updates and functions. This source code is avaialable to everyone under the Free Software Foundation, Inc. http//fsf.org/.
   
-  ![img](./assets/myTeam.png)
+  ![img](assets/myTeam.png)
 
   ## Table of Contents
   * [Installation](#installation)
